@@ -8,14 +8,14 @@
 //   2. Update variable names if desired (but keep the semantic mapping)
 //   3. The rest of the theme adapts automatically
 
-$primary-blue: #012169;        // Primary institutional color (headings, accents)
-$primary-gold: #B9975B;        // Secondary color (emphasis, borders)
-$highlight-yellow: #F2A900;    // Highlight color (markers, alerts)
-$light-bg: #E8EDF5;           // Light background for title/section slides
+$primary-purple: #660874;      // Tsinghua purple (headings, accents)
+$primary-gold: #C89B40;        // Gold accent (emphasis, borders)
+$highlight-red: #A4070B;       // Tsinghua red (markers, alerts)
+$light-bg: #F3EDF5;           // Light purple tint for title/section slides
 
 // Semantic color mapping (don't change these names)
 $jet: #1a1a1a;
-$accent: $primary-blue;
+$accent: $primary-purple;
 $accent2: $primary-gold;
 $right-arrow: "\2192";
 
@@ -25,7 +25,7 @@ $right-arrow: "\2192";
 $font-family-sans-serif: "Source Sans Pro", "Helvetica Neue", sans-serif !default;
 $presentation-heading-font: "Source Sans Pro", "Helvetica Neue", sans-serif !default;
 
-$presentation-heading-color: $primary-blue !default;
+$presentation-heading-color: $primary-purple !default;
 $presentation-heading-font-weight: 600;
 $presentation-font-size-root: 30px;
 
@@ -35,7 +35,7 @@ $presentation-h2-font-size: 1.4em;
 
 // Colors
 $body-color: $jet !default;
-$link-color: $primary-blue !default;
+$link-color: $primary-purple !default;
 $selection-bg: $primary-gold !default;
 
 
@@ -61,7 +61,7 @@ $selection-bg: $primary-gold !default;
   transition: border-color 0.2s ease;
 
   &:hover {
-    border-bottom-color: $primary-blue;
+    border-bottom-color: $primary-purple;
   }
 }
 
@@ -91,7 +91,7 @@ $selection-bg: $primary-gold !default;
   background: linear-gradient(180deg, white 0%, $light-bg 100%);
 
   .title {
-    color: $primary-blue;
+    color: $primary-purple;
     font-size: 2.2em;
     font-weight: 700;
     margin-bottom: 0.2em;
@@ -109,7 +109,7 @@ $selection-bg: $primary-gold !default;
 
   .author,
   .quarto-title-author-name {
-    color: $primary-blue;
+    color: $primary-purple;
     font-weight: 600;
     font-size: 1.2em;
     margin-top: 0.5em;
@@ -148,7 +148,7 @@ $selection-bg: $primary-gold !default;
 // ==============================================================================
 
 .reveal h2 {
-  color: $primary-blue;
+  color: $primary-purple;
   font-weight: 600;
   font-size: 1.5em;
   margin-bottom: 0.7em;
@@ -166,7 +166,7 @@ $selection-bg: $primary-gold !default;
 }
 
 .reveal h4 {
-  color: $highlight-yellow;
+  color: $highlight-red;
   font-weight: 600;
   font-size: 0.95em;
   margin-top: 0.8em;
@@ -179,10 +179,10 @@ $selection-bg: $primary-gold !default;
 
 .alert { color: $primary-gold; }
 
-// Customize these class names for your institution:
-.emoryblue { color: $primary-blue; }
-.emorygold { color: $primary-gold; }
-.emoryyellow { color: $highlight-yellow; }
+// Tsinghua University institutional classes:
+.tsinghuapurple { color: $primary-purple; }
+.tsinghugold { color: $primary-gold; }
+.tsinghured { color: $highlight-red; }
 
 // Semantic colors for diagrams and annotations
 .positive {
@@ -200,12 +200,12 @@ $selection-bg: $primary-gold !default;
 }
 
 // Highlight classes
-.hi { font-weight: 600; color: $primary-blue !important; }
+.hi { font-weight: 600; color: $primary-purple !important; }
 .hi-gold { font-weight: 600; color: $primary-gold !important; }
-.hi-yellow { font-weight: 600; color: $highlight-yellow !important; }
+.hi-red { font-weight: 600; color: $highlight-red !important; }
 .hi-slate { font-weight: 600; color: #314f4f !important; }
 .hi-green { font-weight: 600; color: #2E8B57 !important; }
-.hi-red { font-weight: 600; color: #C41E3A !important; }
+.hi-crimson { font-weight: 600; color: #C41E3A !important; }
 
 .fg { color: var(--col, $jet); }
 .bg {
@@ -232,7 +232,7 @@ $selection-bg: $primary-gold !default;
   }
 
   li::marker {
-    color: $primary-blue;
+    color: $primary-purple;
     font-size: 0.9em;
   }
 }
@@ -271,7 +271,7 @@ $selection-bg: $primary-gold !default;
   }
 
   li::marker {
-    color: $highlight-yellow;
+    color: $highlight-red;
     font-weight: 700;
   }
 }
@@ -291,8 +291,8 @@ $selection-bg: $primary-gold !default;
 }
 
 .highlightbox {
-  background-color: rgba($highlight-yellow, 0.08);
-  border-left: 4px solid $highlight-yellow;
+  background-color: rgba($highlight-red, 0.08);
+  border-left: 4px solid $highlight-red;
   padding: 0.8em 1.2em;
   margin: 1.2em 0;
   border-radius: 6px;
@@ -301,8 +301,8 @@ $selection-bg: $primary-gold !default;
 }
 
 .methodbox {
-  background-color: rgba($primary-blue, 0.06);
-  border-left: 4px solid $primary-blue;
+  background-color: rgba($primary-purple, 0.06);
+  border-left: 4px solid $primary-purple;
   padding: 0.8em 1.2em;
   margin: 1.2em 0;
   border-radius: 6px;
@@ -353,7 +353,7 @@ $selection-bg: $primary-gold !default;
 }
 
 .eqbox {
-  background-color: rgba($primary-blue, 0.04);
+  background-color: rgba($primary-purple, 0.04);
   padding: 0.6em 1.2em;
   margin: 0.8em 0;
   border-radius: 0;
@@ -391,12 +391,12 @@ $selection-bg: $primary-gold !default;
 .reveal table thead th,
 .reveal .slides table tr:last-child td,
 .reveal .slides table {
-  border-bottom: 2px solid $primary-blue;
+  border-bottom: 2px solid $primary-purple;
 }
 
 .reveal table thead th {
   font-weight: 600;
-  color: $primary-blue;
+  color: $primary-purple;
 }
 
 .reveal table caption {
@@ -413,7 +413,7 @@ $selection-bg: $primary-gold !default;
 }
 
 .reveal section h1 {
-  color: $primary-blue;
+  color: $primary-purple;
   text-align: center;
   font-size: 2.2em;
   font-weight: 700;
@@ -534,7 +534,7 @@ $selection-bg: $primary-gold !default;
 }
 
 .note { font-style: italic; color: #666666; }
-.qa { font-weight: 600; color: $primary-blue; }
+.qa { font-weight: 600; color: $primary-purple; }
 
 // ==============================================================================
 // IMAGES AND FIGURES
@@ -578,7 +578,7 @@ $selection-bg: $primary-gold !default;
 // ==============================================================================
 
 .reveal blockquote {
-  background-color: rgba($primary-blue, 0.04);
+  background-color: rgba($primary-purple, 0.04);
   border-left: 4px solid $primary-gold;
   padding: 1em 1.5em;
   margin: 1em 0;
@@ -590,7 +590,7 @@ $selection-bg: $primary-gold !default;
 }
 
 .reveal code {
-  background-color: rgba($primary-blue, 0.06);
+  background-color: rgba($primary-purple, 0.06);
   padding: 0.15em 0.4em;
   border-radius: 3px;
   font-size: 0.85em;

@@ -14,11 +14,22 @@ When you modify a Beamer `.tex` file, you MUST also apply the equivalent change 
 
 ## Lecture Mapping
 
-<!-- Customize this table for your lectures -->
 | Lecture | Beamer | Quarto |
 |---------|--------|--------|
-| 1 | `Slides/Lecture1_Topic.tex` | `Quarto/Lecture1_Topic.qmd` |
-| 2 | `Slides/Lecture2_Topic.tex` | `Quarto/Lecture2_Topic.qmd` |
+| 1 | `Slides/Lecture01_Intro.tex` | `Quarto/Lecture1_Intro.qmd` |
+| 2 | `Slides/Lecture02_Spatial_Eq.tex` | `Quarto/Lecture2_Spatial_Eq.qmd` |
+| 3 | `Slides/Lecture03_QSM.tex` | `Quarto/Lecture3_QSM.qmd` |
+| 4 | `Slides/Lecture04_Geography_Dev.tex` | `Quarto/Lecture4_Geography_Dev.qmd` |
+| 5 | `Slides/Lecture05_Trade_Labor_I.tex` | `Quarto/Lecture5_Trade_Labor_I.qmd` |
+| 6 | `Slides/Lecture06_Trade_Labor_II.tex` | `Quarto/Lecture6_Trade_Labor_II.qmd` |
+| 7 | `Slides/Lecture07_Spatial_Growth.tex` | `Quarto/Lecture7_Spatial_Growth.qmd` |
+| 8 | `Slides/Lecture08_Computation.tex` | `Quarto/Lecture8_Computation.qmd` |
+| 9 | `Slides/Lecture09_Data_Nonrivalry.tex` | `Quarto/Lecture9_Data_Nonrivalry.qmd` |
+| 10 | `Slides/Lecture10_Data_Growth.tex` | `Quarto/Lecture10_Data_Growth.qmd` |
+| 11 | `Slides/Lecture11_Data_Markets.tex` | `Quarto/Lecture11_Data_Markets.qmd` |
+| 12 | `Slides/Lecture12_Unified_Theory.tex` | `Quarto/Lecture12_Unified_Theory.qmd` |
+| 13 | `Slides/Lecture13_Unified_Computation.tex` | `Quarto/Lecture13_Unified_Computation.qmd` |
+| 14 | `Slides/Lecture14_Frontiers.tex` | `Quarto/Lecture14_Frontiers.qmd` |
 <!-- Add rows as you create lectures -->
 
 ## Workflow (Every Time)
@@ -34,7 +45,7 @@ When you modify a Beamer `.tex` file, you MUST also apply the equivalent change 
 | Beamer | Quarto Equivalent |
 | ------ | ----------------- |
 | `\muted{text}` | `[text]{style="color: #525252;"}` |
-| `\key{text}` | `[**text**]{.emorygold}` |
+| `\key{text}` | `[**text**]{.tsinghugold}` |
 | `\textcolor{positive}{text}` | `[text]{.positive}` |
 | `\textcolor{negative}{text}` | `[text]{.negative}` |
 | `\item text` | `- text` |

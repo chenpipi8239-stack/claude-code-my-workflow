@@ -25,29 +25,35 @@ paths:
 - Default parameters, no magic numbers
 - Named return values (lists or tibbles)
 
-## 3. Domain Correctness
+## 3. Domain Correctness (Spatial/Data Economics)
 
-<!-- Customize for your field's known pitfalls -->
-- Verify estimator implementations match slide formulas
-- Check known package bugs (document below in Common Pitfalls)
+- Verify spatial equilibrium solver convergence (iteration residuals below tolerance)
+- Gravity regression: use PPML for zeros in trade flows (`fixest::fepois`)
+- Trade share construction: columns must sum to 1 for each destination
+- Counterfactual welfare: verify ACR sufficient statistics formula used correctly
+- Data valuation: nonrival goods require careful aggregation (not simple summation of marginal values)
+- Fixed effects in spatial panels: region FE and time FE interact with gravity structure
+- Hat algebra: percentage changes must properly cancel calibrated parameters
 
 ## 4. Visual Identity
 
 ```r
-# --- Your institutional palette ---
-primary_blue  <- "#012169"
-primary_gold  <- "#f2a900"
-accent_gray   <- "#525252"
-positive_green <- "#15803d"
-negative_red  <- "#b91c1c"
+# --- Tsinghua University palette ---
+tsinghua_purple <- "#660874"    # Tsinghua purple (primary)
+tsinghua_gold   <- "#C89B40"    # Gold accent
+tsinghua_red    <- "#A4070B"    # Tsinghua red (secondary)
+accent_gray     <- "#525252"
+positive_green  <- "#15803d"
+negative_red    <- "#b91c1c"
 ```
 
 ### Custom Theme
 ```r
-theme_custom <- function(base_size = 14) {
+theme_tsinghua <- function(base_size = 14) {
   theme_minimal(base_size = base_size) +
     theme(
-      plot.title = element_text(face = "bold", color = primary_blue),
+      plot.title = element_text(face = "bold", color = tsinghua_purple),
+      plot.subtitle = element_text(color = accent_gray),
       legend.position = "bottom"
     )
 }
@@ -68,11 +74,15 @@ saveRDS(result, file.path(out_dir, "descriptive_name.rds"))
 
 ## 6. Common Pitfalls
 
-<!-- Add your field-specific pitfalls here -->
 | Pitfall | Impact | Prevention |
 |---------|--------|------------|
 | Missing `bg = "transparent"` | White boxes on slides | Always include in ggsave() |
 | Hardcoded paths | Breaks on other machines | Use relative paths |
+| `sf::st_read()` silent CRS drop | Spatial joins fail silently | Always check and set CRS explicitly |
+| `fixest::fepois` convergence | PPML may not converge with many zeros | Check convergence flag, try `glm.iter` |
+| Sparse matrix to dense | Memory explosion for large spatial models | Use `Matrix::sparseMatrix` throughout |
+| Trade shares not summing to 1 | Invalid counterfactual | Add assertion: `stopifnot(all(abs(colSums(pi_matrix) - 1) < 1e-10))` |
+| `log(0)` in trade flows | NaN propagation | Use `log1p()` or add small epsilon with documentation |
 
 ## 7. Line Length & Mathematical Exceptions
 
@@ -103,3 +113,11 @@ saveRDS(result, file.path(out_dir, "descriptive_name.rds"))
 [ ] RDS: every computed object saved
 [ ] Comments explain WHY not WHAT
 ```
+
+## 9. Multi-Language Interop
+
+- R is primary; Python and Julia scripts go in `scripts/Python/` and `scripts/Julia/`
+- Use `reticulate` for R-Python interop when needed
+- Use `JuliaCall` for R-Julia interop when needed
+- All cross-language data exchange via CSV or Parquet files
+- When translating spatial solvers from Julia/Python to R, explicitly match convergence criteria and solver algorithms

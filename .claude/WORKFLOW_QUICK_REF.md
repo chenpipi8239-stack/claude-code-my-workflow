@@ -48,26 +48,22 @@ Repeat
 
 ---
 
-## Non-Negotiables (Customize These)
+## Non-Negotiables
 
-<!-- Replace with YOUR project's locked-in preferences -->
-
-- [YOUR PATH CONVENTION] (e.g., `here::here()` for R, relative paths for LaTeX)
-- [YOUR SEED CONVENTION] (e.g., `set.seed()` once at top for stochastic code)
-- [YOUR FIGURE STANDARDS] (e.g., white bg, 300 DPI, custom theme)
-- [YOUR COLOR PALETTE] (e.g., institutional colors)
-- [YOUR TOLERANCE THRESHOLDS] (e.g., 1e-6 for point estimates)
+- **Paths:** `file.path()` in R, `os.path.join()` in Python, relative paths for LaTeX
+- **Seeds:** `set.seed(YYYYMMDD)` once at top for R; `np.random.seed()` for Python
+- **Figures:** transparent bg, 300 DPI, `theme_tsinghua()`, `width=12, height=5`
+- **Colors:** Tsinghua purple `#660874`, gold `#C89B40`, red `#A4070B`
+- **Tolerances:** `1e-8` equilibrium, `1e-10` trade shares, `0.01pp` welfare
 
 ---
 
 ## Preferences
 
-<!-- Fill in as you discover your working style -->
-
-**Visual:** [How you want figures/plots handled]
-**Reporting:** [Concise bullets? Detailed prose? Details on request?]
+**Visual:** Publication-ready from the start. No rough drafts for visuals.
+**Reporting:** Concise bullets. Details on request.
 **Session logs:** Always (post-plan, incremental, end-of-session)
-**Replication:** [How strict? Flag near-misses?]
+**Replication:** Strict. Flag near-misses. No proceeding until tolerance met.
 
 ---
 
