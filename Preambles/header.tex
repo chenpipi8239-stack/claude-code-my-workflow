@@ -1,12 +1,52 @@
 % ==============================================================================
-% Beamer Preamble -- Quantitative Spatial Equilibrium and the Data Economy
+% Beamer Preamble — Quantitative Spatial Equilibrium and the Data Economy
 % Tsinghua University
 % ==============================================================================
-%
-% PLACEHOLDER: Replace this file with your custom Beamer preamble/theme.
-% This file is loaded by all Beamer .tex files in Slides/ via:
-%   \input{../Preambles/header.tex}
-%
-% When you add your preamble, update CLAUDE.md's "Beamer Custom Environments"
-% table so Claude knows how to use your custom environments.
+
+% --- Chinese and font support ---
+\usepackage{ctex, hyperref}
+\usepackage[T1]{fontenc}
+
+% --- Math and symbols ---
+\usepackage{amsmath, amssymb, amsfonts, mathtools}
+\usepackage{bm}  % Bold math symbols
+
+% --- Graphics and layout ---
+\usepackage{graphicx, xcolor, multicol, booktabs}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, calc, shapes.geometric, decorations.pathreplacing}
+
+% --- Tables ---
+\usepackage{array, tabularx}
+
+% --- Load Tsinghua theme (must come after other packages) ---
+\usepackage{Tsinghua}
+
 % ==============================================================================
+% COURSE-SPECIFIC COMMANDS
+% ==============================================================================
+
+% --- Notation shortcuts (consistent with knowledge-base-template.md) ---
+\newcommand{\tradecost}[2]{d_{#1#2}}        % Trade cost d_{ij}
+\newcommand{\tradeshare}[2]{\pi_{#1#2}}     % Trade share pi_{ij}
+\newcommand{\migprob}[2]{\mu_{#1#2}}        % Migration probability mu_{ij}
+\newcommand{\hatvar}[1]{\hat{#1}}           % Hat algebra: proportional change
+\newcommand{\datastock}{D}                   % Data stock
+\newcommand{\nonrivalry}{\rho}              % Degree of nonrivalry
+
+% --- Text emphasis commands ---
+\newcommand{\key}[1]{\textcolor{tsinghua}{\textbf{#1}}}
+\newcommand{\muted}[1]{\textcolor{gray}{#1}}
+\newcommand{\positive}[1]{\textcolor{green!50!black}{#1}}
+\newcommand{\negative}[1]{\textcolor{red!70!black}{#1}}
+
+% --- Structural commands ---
+\newcommand{\sourcemark}[1]{\par\vspace{0.3em}{\footnotesize\muted{Source: #1}}}
+\newcommand{\lecmark}[1]{\textcolor{tsinghua!60}{$\rightarrow$ Lecture #1}}
+
+% ==============================================================================
+% THEME ADJUSTMENTS
+% ==============================================================================
+
+% Remove navigation symbols (optional, uncomment if desired)
+% \setbeamertemplate{navigation symbols}{}

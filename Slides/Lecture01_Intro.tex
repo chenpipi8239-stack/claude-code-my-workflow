@@ -1,0 +1,580 @@
+\documentclass{beamer}
+\input{../Preambles/header}
+
+\author{[Instructor Name]}
+\title{Quantitative Spatial Equilibrium and the Data Economy}
+\subtitle{Lecture 1: Introduction \& Motivation}
+\institute{Tsinghua University}
+\date{Spring 2026}
+
+\begin{document}
+
+% ==============================================================================
+% TITLE SLIDE
+% ==============================================================================
+
+\begin{frame}
+    \titlepage
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.15\linewidth]{../Figures/Tsinghua_University_Logo.eps}
+    \end{figure}
+\end{frame}
+
+% --- Table of Contents ---
+\begin{frame}{Outline}
+    \tableofcontents[sectionstyle=show,subsectionstyle=hide]
+\end{frame}
+
+% ==============================================================================
+% SECTION 1: THE SPATIAL ECONOMY
+% ==============================================================================
+
+\section{The Spatial Economy}
+
+\begin{frame}{Where Does Economic Activity Happen?}
+
+    \begin{itemize}
+        \item Economic activity is \key{strikingly concentrated} in space
+        \item The top 50 metropolitan areas produce over 60\% of global GDP
+        \item Within countries: coastal China vs.\ inland, US coasts vs.\ heartland
+        \item Across countries: persistent income gaps of 30:1
+    \end{itemize}
+
+    \vspace{1em}
+    \begin{block}{The Central Question}
+        Why is economic activity distributed the way it is --- and what are the consequences for welfare, trade, and policy?
+    \end{block}
+
+\end{frame}
+
+\begin{frame}{Key Questions of Spatial Economics}
+
+    \begin{enumerate}
+        \item \key{Wages:} Why do workers earn more in some places than others?
+        \item \key{Rents:} Why are housing costs so different across cities?
+        \item \key{Migration:} Why do people move --- and why don't more people move?
+        \item \key{Trade:} Why do nearby regions trade more than distant ones?
+        \item \key{Agglomeration:} Why do firms and workers cluster together?
+        \item \key{Welfare:} Are people in expensive cities actually better off?
+    \end{enumerate}
+
+    \vspace{0.5em}
+    \muted{These questions are deeply interconnected --- answering one requires answering all.}
+
+\end{frame}
+
+\begin{frame}{Spatial Equilibrium: The Organizing Principle}
+
+    \begin{exampleblock}{Core Idea (Rosen 1979, Roback 1982)}
+        In equilibrium, mobile workers must be \key{indifferent} across locations. Higher wages in one city must be offset by higher rents, worse amenities, or other costs.
+    \end{exampleblock}
+
+    \vspace{1em}
+    Implications:
+    \begin{itemize}
+        \item Wages, rents, and amenities are jointly determined
+        \item You cannot study one in isolation
+        \item \key{General equilibrium} thinking is essential
+    \end{itemize}
+
+    \vspace{0.5em}
+    \lecmark{2}
+
+\end{frame}
+
+\begin{frame}{Agglomeration vs.\ Dispersion}
+
+    Two opposing forces shape the spatial economy:
+
+    \vspace{0.5em}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Agglomeration Forces}
+                \begin{itemize}
+                    \item Knowledge spillovers
+                    \item Thick labor markets
+                    \item Input-output linkages
+                    \item Variety and specialization
+                \end{itemize}
+            \end{block}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Dispersion Forces}
+                \begin{itemize}
+                    \item Congestion and rents
+                    \item Commuting costs
+                    \item Competition for resources
+                    \item Immobile factors (land)
+                \end{itemize}
+            \end{block}
+        \end{column}
+    \end{columns}
+
+    \vspace{0.5em}
+    The \key{balance} between these forces determines the spatial distribution of economic activity.
+
+\end{frame}
+
+\begin{frame}{Gravity: The Empirical Regularity}
+
+    \begin{exampleblock}{The Gravity Equation}
+        Trade between regions $i$ and $j$ is proportional to their ``sizes'' and inversely proportional to the ``distance'' between them:
+        \[ X_{ij} \propto \frac{S_i \cdot M_j}{(\text{distance}_{ij})^\delta} \]
+    \end{exampleblock}
+
+    \vspace{0.5em}
+    \begin{itemize}
+        \item One of the most robust empirical regularities in economics
+        \item Holds for goods trade, migration, FDI, commuting, phone calls
+        \item Can be \key{micro-founded} from trade theory (Eaton \& Kortum 2002)
+    \end{itemize}
+
+    \vspace{0.5em}
+    \lecmark{3}
+
+\end{frame}
+
+\begin{frame}{The Quantitative Revolution in Spatial Economics}
+
+    Recent advances have made spatial models \key{quantitatively tractable}:
+
+    \vspace{0.5em}
+    \begin{itemize}
+        \item \key{Eaton \& Kortum (2002):} Micro-founded gravity from Frechet productivity draws
+        \item \key{Caliendo \& Parro (2015):} Multi-sector, multi-country exact hat algebra
+        \item \key{Caliendo, Dvorkin \& Parro (2019):} Dynamic spatial GE with migration
+        \item \key{Desmet, Nagy \& Rossi-Hansberg (2018):} Geography and long-run development
+        \item \key{Cai, Caliendo, Parro \& Xiang (2025):} Mechanics of spatial growth
+    \end{itemize}
+
+    \vspace{0.5em}
+    Key innovation: \key{exact hat algebra} --- solve counterfactuals using only observed data, without calibrating all structural parameters.
+
+\end{frame}
+
+\begin{frame}{What We Will Build: Lectures 2--8}
+
+    \begin{center}
+    \begin{tikzpicture}[
+        node distance=0.6cm,
+        every node/.style={font=\small, align=center},
+        block/.style={draw, rounded corners, fill=tsinghua!10, minimum width=7.5cm, minimum height=0.65cm}
+    ]
+        \node[block] (l2) {Lecture 2: Spatial Equilibrium Foundations};
+        \node[block, below=of l2] (l3) {Lecture 3: Quantitative Spatial Models (EK, Gravity)};
+        \node[block, below=of l3] (l4) {Lecture 4: Geography of Development (DNR 2018)};
+        \node[block, below=of l4] (l5) {Lecture 5--6: Trade \& Labor Dynamics (CDP 2019)};
+        \node[block, below=of l5] (l7) {Lecture 7: Mechanics of Spatial Growth (CCPX 2025)};
+        \node[block, below=of l7] (l8) {Lecture 8: Computational Methods};
+
+        \draw[-{Stealth}, thick, tsinghua] (l2) -- (l3);
+        \draw[-{Stealth}, thick, tsinghua] (l3) -- (l4);
+        \draw[-{Stealth}, thick, tsinghua] (l4) -- (l5);
+        \draw[-{Stealth}, thick, tsinghua] (l5) -- (l7);
+        \draw[-{Stealth}, thick, tsinghua] (l7) -- (l8);
+    \end{tikzpicture}
+    \end{center}
+
+\end{frame}
+
+% ==============================================================================
+% SECTION 2: THE DATA ECONOMY
+% ==============================================================================
+
+\section{The Data Economy}
+
+\begin{frame}{Data Is Everywhere}
+
+    \begin{itemize}
+        \item Global data creation: 120 zettabytes in 2023, projected 180+ ZB by 2025
+        \item Data-intensive industries account for a growing share of GDP
+        \item Firms increasingly compete on data assets, not just physical capital
+        \item Governments invest in ``data infrastructure'' alongside roads and ports
+    \end{itemize}
+
+    \vspace{1em}
+    \begin{block}{The Central Question}
+        How should we think about data as an economic input --- and what does it imply for growth, welfare, and policy?
+    \end{block}
+
+\end{frame}
+
+\begin{frame}{What Makes Data Special?}
+
+    Data is \key{fundamentally different} from traditional economic inputs:
+
+    \vspace{0.5em}
+    \begin{itemize}
+        \item \key{Nonrivalry:} My using data does not diminish your ability to use it
+        \item \key{Non-depletability:} Data does not wear out with use
+        \item \key{Increasing returns:} More data $\rightarrow$ better predictions $\rightarrow$ more value
+        \item \key{Excludability varies:} Encryption, legal restrictions, DRM
+        \item \key{Externalities:} Individual data generates value for unrelated purposes
+    \end{itemize}
+
+    \vspace{0.5em}
+    \muted{These properties mean standard competitive equilibrium reasoning may not apply.}
+
+\end{frame}
+
+\begin{frame}{Nonrivalry: The Key Insight}
+
+    \begin{exampleblock}{Jones \& Tonetti (AER 2020)}
+        If data is \key{nonrival}, then the same dataset can be used simultaneously by multiple firms without any reduction in its usefulness. This creates a fundamental tension:
+    \end{exampleblock}
+
+    \vspace{0.5em}
+    \begin{itemize}
+        \item \key{Efficiency} suggests data should be widely shared (marginal cost $\approx$ 0)
+        \item \key{Incentives} require some exclusion to reward data creation
+        \item \key{Privacy} imposes social costs on data sharing
+    \end{itemize}
+
+    \vspace{0.5em}
+    This efficiency--incentives--privacy tradeoff is at the heart of data policy.
+
+    \vspace{0.3em}
+    \lecmark{9}
+
+\end{frame}
+
+\begin{frame}{Data vs.\ Ideas vs.\ Physical Capital}
+
+    \vspace{0.3em}
+    \begin{center}
+    {\scriptsize
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Property} & \textbf{Phys.\ Capital} & \textbf{Ideas} & \textbf{Data} \\
+        \midrule
+        Rival? & Yes & No & No \\
+        Excludable? & Yes & Partially (patents) & Partially (encryption) \\
+        Depreciates? & Yes & Slowly & Varies \\
+        Increasing returns? & No & Yes & Yes \\
+        Privacy concern? & No & No & \key{Yes} \\
+        Observed passively? & No & No & \key{Yes} \\
+        \bottomrule
+    \end{tabular}
+    }
+    \end{center}
+
+    \vspace{0.3em}
+    Data shares nonrivalry with ideas but adds \key{privacy} as a new dimension. Data is also often generated as a \key{byproduct} of activity, not through deliberate R\&D.
+
+\end{frame}
+
+\begin{frame}{Data Markets and Regulation}
+
+    \begin{itemize}
+        \item \key{Who owns data?} The generator? The collector? The subject? Society?
+        \item Markets for data face challenges: adverse selection, verification, externalities
+        \item Different regulatory approaches worldwide:
+    \end{itemize}
+
+    \vspace{0.2em}
+    {\small
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \begin{block}{China: ``20 Key Measures''}
+                \begin{itemize}
+                    \item Data as factor of production
+                    \item Gov't-guided data exchanges
+                    \item Fiscal incentives for sharing
+                \end{itemize}
+            \end{block}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \begin{block}{EU / US Approaches}
+                \begin{itemize}
+                    \item GDPR: individual rights
+                    \item US: sector-specific rules
+                    \item Emerging: data portability
+                \end{itemize}
+            \end{block}
+        \end{column}
+    \end{columns}
+    }
+
+    \vspace{0.2em}
+    \lecmark{11}
+
+\end{frame}
+
+\begin{frame}{Data and Endogenous Growth}
+
+    Data can drive growth through multiple channels:
+
+    \vspace{0.2em}
+    \begin{enumerate}
+        \item \key{Process optimization:} Better data $\rightarrow$ more efficient production
+        \item \key{Innovation:} Data-driven discovery of new products and techniques
+        \item \key{Matching:} Reduced frictions in labor, product, and credit markets
+        \item \key{Multi-purpose use:} Same data serves advertising, logistics, R\&D
+    \end{enumerate}
+
+    \vspace{0.3em}
+    \begin{exampleblock}{Cong, Wei, Xie \& Zhang}
+        When data has \key{multiple uses}, its contribution to growth is amplified. Endogenous data accumulation can sustain long-run growth even without traditional R\&D.
+    \end{exampleblock}
+
+    \lecmark{10}
+
+\end{frame}
+
+\begin{frame}{What We Will Build: Lectures 9--11}
+
+    \begin{center}
+    \begin{tikzpicture}[
+        node distance=0.6cm,
+        every node/.style={font=\small, align=center},
+        block/.style={draw, rounded corners, fill=tsinghua!10, minimum width=7.5cm, minimum height=0.65cm}
+    ]
+        \node[block] (l9)  {Lecture 9: Nonrivalry \& Data Growth (JT 2020)};
+        \node[block, below=of l9]  (l10) {Lecture 10: Multi-Purpose Data \& Growth (Cong et al.)};
+        \node[block, below=of l10] (l11) {Lecture 11: Data Markets \& Policy (WJG 2023)};
+
+        \draw[-{Stealth}, thick, tsinghua] (l9)  -- (l10);
+        \draw[-{Stealth}, thick, tsinghua] (l10) -- (l11);
+    \end{tikzpicture}
+    \end{center}
+
+    \vspace{1em}
+    These lectures build from the single-agent data model (JT) to multi-purpose data (Cong et al.) to market design and fiscal policy (WJG).
+
+\end{frame}
+
+% ==============================================================================
+% SECTION 3: THE GEOGRAPHY OF THE DATA ECONOMY
+% ==============================================================================
+
+\section{The Geography of the Data Economy}
+
+\begin{frame}{Data Flows Have Geography}
+
+    Data may be ``weightless,'' but it is \key{not placeless}:
+
+    \vspace{0.5em}
+    \begin{itemize}
+        \item \key{Data centers} are physically located --- land, energy, cooling matter
+        \item \key{Data regulation} varies by jurisdiction (GDPR, China Cybersecurity Law)
+        \item \key{Language and culture} shape which data is generated where
+        \item \key{Network effects} concentrate data in dominant platforms/regions
+        \item \key{Submarine cables} and internet infrastructure create physical bottlenecks
+    \end{itemize}
+
+    \vspace{0.5em}
+    The geography of data production, storage, and usage is \key{uneven} --- just like the geography of physical production.
+
+\end{frame}
+
+\begin{frame}{Digital Trade Costs}
+
+    \begin{exampleblock}{A New Frontier}
+        Just as iceberg trade costs $d_{ij} \geq 1$ shape goods trade, \key{digital trade costs} shape data flows across borders.
+    \end{exampleblock}
+
+    \vspace{0.5em}
+    Sources of digital trade costs:
+    \begin{itemize}
+        \item \key{Data localization} requirements (data must stay in-country)
+        \item \key{Privacy regulation} mismatches (EU--US data transfer frictions)
+        \item \key{Bandwidth and latency} (physical infrastructure)
+        \item \key{Language barriers} in NLP and AI training data
+        \item \key{Platform fragmentation} (WeChat vs.\ WhatsApp ecosystems)
+    \end{itemize}
+
+    \vspace{0.3em}
+    \muted{Can we measure digital trade costs with gravity-style methods?}
+
+\end{frame}
+
+\begin{frame}{Spatial Data Inequality}
+
+    \begin{itemize}
+        \item Rich regions generate more data (more transactions, more sensors)
+        \item Data-intensive firms concentrate in a few global hubs
+        \item \key{Data-rich regions} may attract more firms $\rightarrow$ more data $\rightarrow$ agglomeration
+        \item Developing regions risk being ``data-poor'' --- a new dimension of inequality
+    \end{itemize}
+
+    \vspace{1em}
+    \begin{block}{Parallel to Physical Agglomeration}
+        Just as knowledge spillovers create agglomeration in manufacturing, \key{data spillovers} may create agglomeration in the digital economy. The mechanisms differ, but the spatial logic is the same.
+    \end{block}
+
+\end{frame}
+
+\begin{frame}{The Unified Framework: A Vision}
+
+    This course builds toward a \key{unified quantitative framework}:
+
+    \vspace{0.5em}
+    \begin{enumerate}
+        \item \key{Spatial equilibrium:} Workers and firms choose locations
+        \item \key{Trade in goods:} Subject to iceberg trade costs $d_{ij}$
+        \item \key{Data as input:} Nonrival, generated as byproduct of activity
+        \item \key{Data flows:} Subject to ``digital trade costs'' across regions
+        \item \key{Growth:} Data accumulation drives endogenous growth across space
+    \end{enumerate}
+
+    \vspace{0.5em}
+    The spatial and data components are \key{not independent}:
+    \begin{itemize}
+        \item More economic activity in region $i$ $\rightarrow$ more data generated in $i$
+        \item More data in $i$ $\rightarrow$ higher productivity $\rightarrow$ more activity
+        \item \key{Circular causation} --- a spatial data agglomeration force
+    \end{itemize}
+
+    \vspace{0.3em}
+    \lecmark{12--13}
+
+\end{frame}
+
+\begin{frame}{Research Frontier: Open Questions}
+
+    \begin{enumerate}
+        \item How large are digital trade costs, and how do they compare to goods trade costs?
+        \item Does data nonrivalry amplify or dampen spatial inequality?
+        \item What is the optimal spatial policy for data: localization or free flow?
+        \item How do privacy regulations interact with spatial equilibrium?
+        \item Can data-driven growth help lagging regions catch up?
+        \item What is the ``data gravity equation'' --- and does it look like goods gravity?
+    \end{enumerate}
+
+    \vspace{0.5em}
+    \muted{Some of these are solvable with the tools we build in this course. Others are your future research papers.}
+
+\end{frame}
+
+\begin{frame}{Why This Matters for Policy}
+
+    \begin{itemize}
+        \item \key{Data localization:} Should China require data to stay onshore? What are the spatial GE effects?
+        \item \key{Data taxation:} How should data be taxed across jurisdictions?
+        \item \key{Digital sovereignty:} Can smaller economies sustain independent data ecosystems?
+        \item \key{Regional development:} Can data infrastructure investment reduce spatial inequality?
+        \item \key{Trade agreements:} How should digital trade rules interact with goods trade rules?
+    \end{itemize}
+
+    \vspace{0.5em}
+    Answering these requires \key{quantitative spatial models} that incorporate data.
+
+\end{frame}
+
+% ==============================================================================
+% SECTION 4: COURSE ROADMAP
+% ==============================================================================
+
+\section{Course Roadmap}
+
+\begin{frame}{Course Structure: 14 Lectures}
+
+    \vspace{0.3em}
+    {\footnotesize
+    \begin{tabular}{clll}
+        \toprule
+        \textbf{\#} & \textbf{Topic} & \textbf{Key Paper(s)} & \textbf{Block} \\
+        \midrule
+        1 & Introduction \& Motivation & --- & \\
+        2 & Spatial Eq.\ Foundations & Rosen, Roback & \multirow{7}{*}{\rotatebox{90}{\key{Spatial}}} \\
+        3 & Quant.\ Spatial Models & EK (02), CP (15) & \\
+        4 & Geography of Development & DNR (2018) & \\
+        5 & Trade \& Labor Dynamics I & CDP (2019) & \\
+        6 & Trade \& Labor Dynamics II & CDP (2019) & \\
+        7 & Spatial Growth Mechanics & CCPX (2025) & \\
+        8 & Computational Methods & Cross-cutting & \\
+        \bottomrule
+    \end{tabular}
+    }
+
+\end{frame}
+
+\begin{frame}{Course Structure (continued)}
+
+    \vspace{0.3em}
+    {\small
+    \begin{tabular}{clll}
+        \toprule
+        \textbf{\#} & \textbf{Topic} & \textbf{Key Paper(s)} & \textbf{Block} \\
+        \midrule
+        9 & Data: Nonrivalry & JT (2020) & \multirow{3}{*}{\rotatebox{90}{\key{Data}}} \\
+        10 & Multi-Purpose Data \& Growth & Cong et al. & \\
+        11 & Data Markets \& Policy & WJG (2023) & \\
+        \midrule
+        12 & Unified Framework: Theory & Synthesis & \multirow{3}{*}{\rotatebox{90}{\key{Unified}}} \\
+        13 & Unified Framework: Computation & Synthesis & \\
+        14 & Frontiers \& Research Agenda & Open & \\
+        \bottomrule
+    \end{tabular}
+    }
+
+    \vspace{1em}
+    The course is designed as a \key{bridge}: spatial economics $\rightarrow$ data economics $\rightarrow$ unified spatial data economy.
+
+\end{frame}
+
+\begin{frame}{Tools and Methods}
+
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Theory}
+                \begin{itemize}
+                    \item CES / Frechet models
+                    \item Exact hat algebra
+                    \item Dynamic spatial equilibrium
+                    \item Endogenous growth theory
+                    \item Mechanism design
+                \end{itemize}
+            \end{block}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Computation}
+                \begin{itemize}
+                    \item R (primary language)
+                    \item Python / Julia (solvers)
+                    \item Fixed-point iteration
+                    \item Structural gravity estimation
+                    \item Counterfactual simulation
+                \end{itemize}
+            \end{block}
+        \end{column}
+    \end{columns}
+
+    \vspace{1em}
+    All replication code will be provided. You will both \key{replicate} existing results and \key{extend} them.
+
+\end{frame}
+
+\begin{frame}{Key References}
+
+    \vspace{0.3em}
+    {\small
+    \textbf{Spatial Economics:}
+    \begin{itemize}
+        \item Redding \& Rossi-Hansberg (2017), ``Quantitative Spatial Economics'' \cite{ReddingRossiHansberg2017_quantitative}
+        \item Eaton \& Kortum (2002), ``Technology, Geography, and Trade'' \cite{EatonKortum2002_technology}
+        \item Caliendo, Dvorkin \& Parro (2019), ``Trade and Labor Market Dynamics'' \cite{CaliendoDvorkinParro2019_trade_labor}
+    \end{itemize}
+
+    \vspace{0.3em}
+    \textbf{Data Economics:}
+    \begin{itemize}
+        \item Jones \& Tonetti (2020), ``Nonrivalry and the Economics of Data'' \cite{JonesTonetti2020_nonrivalry}
+        \item Cong, Wei, Xie \& Zhang, ``Endogenous Growth Under Multiple Uses of Data'' \cite{CongWeiXieZhang_data_growth}
+        \item 王志刚、金徵辅、龚六堂 (2023), 数据要素市场财税政策 \cite{WangJinGong2023_fiscal_data}
+    \end{itemize}
+    }
+
+\end{frame}
+
+% ==============================================================================
+% REFERENCES
+% ==============================================================================
+
+\begin{frame}[allowframebreaks]{References}
+    \bibliographystyle{apalike}
+    \bibliography{../Bibliography_base}
+\end{frame}
+
+\end{document}

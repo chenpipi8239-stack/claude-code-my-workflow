@@ -105,12 +105,19 @@ python scripts/quality_score.py Quarto/file.qmd
 
 ## Beamer Custom Environments
 
-Pending: user will supply custom Beamer preamble with theme definitions.
-Update this table once `Preambles/header.tex` is populated.
+Theme: THU-Beamer-Theme (`\usepackage{Tsinghua}` in `Preambles/header.tex`)
 
-| Environment | Effect | Use Case |
-|-------------|--------|----------|
-| *(to be filled)* | | |
+| Environment / Command | Effect | Use Case |
+|-----------------------|--------|----------|
+| `\begin{block}{Title}` | Purple header, white bg | Key results, theorems |
+| `\begin{exampleblock}{Title}` | White header, purple text | Definitions, paper summaries |
+| `\begin{alertblock}{Title}` | Red/alert header | Warnings, caveats |
+| `\key{text}` | Bold tsinghua purple | Inline emphasis |
+| `\muted{text}` | Gray text | Secondary info, sources |
+| `\positive{text}` | Green text | Good outcomes |
+| `\negative{text}` | Red text | Bad outcomes |
+| `\lecmark{N}` | Arrow with lecture number | Cross-lecture references |
+| `\sourcemark{text}` | Small gray source line | Data/figure attribution |
 
 ## Quarto CSS Classes
 
