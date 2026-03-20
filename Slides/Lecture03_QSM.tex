@@ -1,0 +1,1146 @@
+\documentclass{beamer}
+\input{../Preambles/header}
+
+\author{[Instructor Name]}
+\title{Quantitative Spatial Equilibrium and the Data Economy}
+\subtitle{Lecture 3: Quantitative Spatial Models}
+\institute{Tsinghua University}
+\date{Spring 2026}
+
+\begin{document}
+
+% ==============================================================================
+% TITLE & OVERVIEW
+% ==============================================================================
+
+\begin{frame}
+    \titlepage
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.15\linewidth]{../Figures/Tsinghua_University_Logo.eps}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Outline}
+    \tableofcontents[sectionstyle=show,subsectionstyle=hide]
+\end{frame}
+
+% ==============================================================================
+% ACT 1: MOTIVATION & RECAP (slides 1-5)
+% ==============================================================================
+
+\begin{frame}{Where We Are}
+
+    \begin{itemize}
+        \item \key{Lecture 2:} Built a spatial GE with CES preferences, trade costs, gravity
+        \item \key{The problem:} We assumed firms set prices $p_i = w_i$. No micro-foundation for \emph{why} regions differ in what they produce or how productively
+        \item \key{This lecture:} Two major advances:
+    \end{itemize}
+
+    \vspace{0.5em}
+    \begin{enumerate}
+        \item \key{Eaton \& Kortum (2002):} A supply-side model that gives gravity from \emph{first principles} --- not assumed, but derived from productivity draws
+        \item \key{Exact hat algebra:} A method to compute counterfactuals using \emph{only observed data}, without calibrating all structural parameters
+    \end{enumerate}
+
+    \vspace{0.5em}
+    \muted{This is the most important methodological lecture in the spatial block.}
+
+\end{frame}
+
+\begin{frame}{Recap: The Lecture 2 System}
+
+    We ended Lecture 2 with five equations:
+    {\small
+    \begin{align*}
+        \text{Trade shares:} \quad & \pi_{ij} = \frac{(w_i d_{ij})^{1-\sigma}}{\sum_k (w_k d_{kj})^{1-\sigma}} \\
+        \text{Price index:} \quad & P_j = \left(\sum_i (w_i d_{ij})^{1-\sigma}\right)^{\frac{1}{1-\sigma}} \\
+        \text{Market clearing:} \quad & w_i L_i = \sum_j \pi_{ij} \cdot w_j L_j \\
+        \text{Spatial eq.:} \quad & B_i \cdot w_i / P_i = \bar{U} \\
+        \text{Population:} \quad & \sum_i L_i = \bar{L}
+    \end{align*}
+    }
+
+    \key{Limitations:}
+    \begin{itemize}
+        \item Trade elasticity governed by $\sigma - 1$ (preference parameter)
+        \item No story for \emph{why} region $i$ is cheap or expensive
+        \item To run counterfactuals, we need every $w_i$, $d_{ij}$, $B_i$ in levels
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{The Promise of This Lecture}
+
+    \begin{block}{Two Big Ideas}
+        \begin{enumerate}
+            \item \key{Eaton-Kortum:} Gravity from productivity draws and cost minimization. The trade elasticity $\theta$ has a structural interpretation.
+            \item \key{Hat algebra:} Write the model in \emph{changes} ($\hat{x} = x'/x$). Unobserved fundamentals cancel. Only need \emph{observed data} $+$ $\theta$.
+        \end{enumerate}
+    \end{block}
+
+    \vspace{0.3em}
+    \begin{center}
+    \begin{tikzpicture}[
+        node distance=0.4cm,
+        every node/.style={font=\small, align=center},
+        block/.style={draw, rounded corners, fill=tsinghua!10, minimum width=5cm, minimum height=0.5cm}
+    ]
+        \node[block] (ek) {Eaton-Kortum: micro-founded gravity};
+        \node[block, below=of ek] (qsm) {Full quantitative spatial model};
+        \node[block, below=of qsm] (hat) {Exact hat algebra: counterfactuals};
+        \draw[-{Stealth}, thick, tsinghua] (ek) -- (qsm);
+        \draw[-{Stealth}, thick, tsinghua] (qsm) -- (hat);
+    \end{tikzpicture}
+    \end{center}
+
+\end{frame}
+
+% ==============================================================================
+% ACT 2: THE EATON-KORTUM MODEL (slides 6-20)
+% ==============================================================================
+
+\section{The Eaton-Kortum Model}
+
+\begin{frame}{Why Model the Supply Side?}
+
+    In Lecture 2, we wrote $p_{ij} = w_i d_{ij}$ and were done. But:
+
+    \vspace{0.3em}
+    \begin{itemize}
+        \item \negative{No heterogeneity:} Each region produces one good at one productivity
+        \item \negative{No comparative advantage:} Regions do not specialize
+        \item \negative{Trade elasticity = preference parameter:} $\sigma - 1$ does double duty
+    \end{itemize}
+
+    \vspace{0.3em}
+    Eaton \& Kortum (2002) fix this:
+    \begin{itemize}
+        \item A continuum of goods $\omega \in [0,1]$
+        \item \key{Random productivity draws} for each good in each region
+        \item Consumers buy each good from the \key{cheapest source}
+    \end{itemize}
+
+    \vspace{0.2em}
+    \muted{The result: gravity with a structural trade elasticity, from supply-side fundamentals.}
+
+\end{frame}
+
+\begin{frame}{Setup: A Continuum of Goods}
+
+    \begin{itemize}
+        \item $N$ regions, continuum of goods $\omega \in [0,1]$
+        \item Region $i$ draws productivity $z_i(\omega)$ for each good $\omega$
+        \item \key{Perfect competition:} Price of good $\omega$ produced in $i$ is $\frac{w_i}{z_i(\omega)}$
+        \item With iceberg trade costs $d_{ij}$, the price of good $\omega$ from $i$ in market $j$:
+    \end{itemize}
+
+    \vspace{0.3em}
+    \begin{block}{Delivered Price}
+        \vspace{-0.5em}
+        \[ p_{ij}(\omega) = \frac{w_i \cdot d_{ij}}{z_i(\omega)} \]
+    \end{block}
+
+    \vspace{0.3em}
+    Consumers in $j$ buy good $\omega$ from the \key{cheapest source}:
+    \[ p_j(\omega) = \min_{i} \left\{ \frac{w_i \cdot d_{ij}}{z_i(\omega)} \right\} \]
+
+\end{frame}
+
+\begin{frame}{The Frechet Distribution}
+
+    \key{Key assumption:} Productivities are drawn from a Frechet distribution:
+
+    \begin{block}{Frechet CDF}
+        \vspace{-0.5em}
+        \[ F_i(z) = \Pr[z_i(\omega) \leq z] = e^{-A_i z^{-\theta}}, \qquad z > 0 \]
+    \end{block}
+
+    \vspace{0.2em}
+    Two parameters:
+    \begin{itemize}
+        \item \key{$A_i > 0$:} \key{Fundamental productivity} of region $i$. Higher $A_i$ $\Rightarrow$ more likely to draw high productivities. Captures absolute advantage.
+        \item \key{$\theta > 1$:} \key{Dispersion} of productivity (same across regions).
+            \begin{itemize}
+                \item Lower $\theta$ $\Rightarrow$ more dispersion $\Rightarrow$ more comparative advantage $\Rightarrow$ more trade
+                \item Higher $\theta$ $\Rightarrow$ less dispersion $\Rightarrow$ regions more similar $\Rightarrow$ less trade
+            \end{itemize}
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Frechet: Intuition}
+
+    \begin{center}
+    \begin{tikzpicture}[xscale=0.6, yscale=0.5]
+        % Axis
+        \draw[-{Stealth}, thick] (0,0) -- (7,0) node[right] {$z$};
+        \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$f(z)$};
+
+        % High theta (concentrated)
+        \draw[thick, red!70!black] plot[smooth, domain=0.4:6.5] (\x, {3.5 * 8 * (\x)^(-9) * exp(-(\x)^(-8))});
+        \node[red!70!black, font=\footnotesize] at (3.5, 3.5) {$\theta = 8$ (concentrated)};
+
+        % Low theta (dispersed)
+        \draw[thick, tsinghua] plot[smooth, domain=0.2:6.5] (\x, {3.5 * 3 * (\x)^(-4) * exp(-(\x)^(-3))});
+        \node[tsinghua, font=\footnotesize] at (5.5, 1.5) {$\theta = 3$ (dispersed)};
+    \end{tikzpicture}
+    \end{center}
+
+    \vspace{-0.3em}
+    \begin{itemize}
+        \item Low $\theta$: lucky draws $\Rightarrow$ strong comparative advantage $\Rightarrow$ \key{more trade}
+        \item High $\theta$: similar draws $\Rightarrow$ weak comparative advantage $\Rightarrow$ \key{less trade}
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Why Frechet?}
+
+    The Frechet distribution is chosen for a powerful mathematical reason:
+
+    \vspace{0.3em}
+    \begin{exampleblock}{Extreme Value Property}
+        Frechet is \key{max-stable}: the maximum of independent Frechet draws is also Frechet. Since consumers pick the cheapest source (= highest effective productivity), the resulting price distribution inherits a clean closed form.
+    \end{exampleblock}
+
+    \vspace{0.3em}
+    \key{Analogy with CES:}
+    \begin{itemize}
+        \item CES: chosen because it gives constant-elasticity demand
+        \item Frechet: chosen because it gives constant-elasticity \emph{trade shares}
+        \item Both are ``as-if'' assumptions that buy tremendous tractability
+    \end{itemize}
+
+    \vspace{0.2em}
+    \muted{Other extreme value distributions (Gumbel, Weibull) play similar roles in discrete choice models.}
+
+\end{frame}
+
+\begin{frame}{Deriving Trade Shares: Step 1}
+
+    \textbf{Question:} What fraction of goods does region $j$ buy from region $i$?
+
+    \vspace{0.2em}
+    Region $j$ buys good $\omega$ from $i$ if $i$ offers the lowest price:
+    \[ \frac{w_i d_{ij}}{z_i(\omega)} \leq \frac{w_k d_{kj}}{z_k(\omega)} \quad \text{for all } k \]
+
+    Equivalently, $i$ wins if its ``effective productivity'' is highest:
+    \[ \frac{z_i(\omega)}{w_i d_{ij}} \geq \frac{z_k(\omega)}{w_k d_{kj}} \quad \text{for all } k \]
+
+    \vspace{0.2em}
+    \key{Key:} The probability that $i$ offers the lowest price equals the fraction of goods $j$ buys from $i$ (law of large numbers over the continuum).
+
+\end{frame}
+
+\begin{frame}{Deriving Trade Shares: Step 2}
+
+    The effective cost of sourcing from $i$ in market $j$ has CDF:
+    \[ G_{ij}(p) = 1 - e^{-A_i (w_i d_{ij})^{-\theta} p^{\theta}} \]
+
+    The minimum across all sources has CDF $G_j(p) = 1 - \prod_i (1 - G_{ij}(p))$:
+    \[ G_j(p) = 1 - e^{-\Phi_j \cdot p^{\theta}} \]
+    where we define the \key{market access} term:
+
+    \begin{block}{Market Access / Price Competitiveness}
+        \vspace{-0.5em}
+        \[ \Phi_j \equiv \sum_{k=1}^{N} A_k (w_k d_{kj})^{-\theta} \]
+    \end{block}
+
+    \muted{$\Phi_j$ summarizes how much competition market $j$ faces from all sources.}
+
+\end{frame}
+
+\begin{frame}{Deriving Trade Shares: Step 3}
+
+    The probability that region $i$ is the cheapest source for market $j$:
+
+    \vspace{0.3em}
+    \begin{block}{Eaton-Kortum Trade Shares}
+        \vspace{-0.5em}
+        \[ \pi_{ij} = \frac{A_i (w_i d_{ij})^{-\theta}}{\Phi_j} = \frac{A_i (w_i d_{ij})^{-\theta}}{\displaystyle\sum_{k=1}^{N} A_k (w_k d_{kj})^{-\theta}} \]
+    \end{block}
+
+    \vspace{0.2em}
+    \key{Compare with CES from Lecture 2:}
+    $\pi_{ij}^{\text{CES}} = (w_i d_{ij})^{1-\sigma}/\sum_k (w_k d_{kj})^{1-\sigma}$
+
+    \vspace{0.2em}
+    The \key{same gravity structure}, with:
+    \begin{itemize}
+        \item $\theta$ replacing $\sigma - 1$ as the trade elasticity
+        \item $A_i$ providing heterogeneity across origins (absolute advantage)
+        \item Trade elasticity $\theta$ comes from \emph{supply-side} dispersion, not demand
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{The EK Price Index}
+
+    The price index in market $j$ follows from the distribution of minimum prices:
+
+    \begin{block}{EK Price Index}
+        \vspace{-0.5em}
+        \[ P_j = \gamma \cdot \Phi_j^{-1/\theta} = \gamma \left(\sum_{i=1}^{N} A_i (w_i d_{ij})^{-\theta}\right)^{-1/\theta} \]
+    \end{block}
+
+    \vspace{0.2em}
+    where $\gamma = \Gamma\!\left(\frac{\theta+1-\sigma}{\theta}\right)^{\frac{1}{1-\sigma}}$ is a known constant depending on $\theta$ and $\sigma$.
+
+    \vspace{0.3em}
+    \key{Interpretation:}
+    \begin{itemize}
+        \item Higher $\Phi_j$ (more competitive suppliers) $\Rightarrow$ lower $P_j$
+        \item Lower trade costs $d_{ij}$ $\Rightarrow$ higher $\Phi_j$ $\Rightarrow$ lower $P_j$
+        \item $\theta$ governs how sensitive the price index is to trade costs
+    \end{itemize}
+
+    \vspace{0.2em}
+    \muted{Requires $\theta > \sigma - 1$ so that $\gamma$ is well-defined.}
+
+\end{frame}
+
+\begin{frame}{Worked Example: 2 Regions}
+
+    \textbf{Setup:} $N=2$, $\theta = 4$, $A_1 = 1$, $A_2 = 0.5$, $w_1 = w_2 = 1$, $d_{12} = d_{21} = 1.5$.
+
+    \vspace{0.2em}
+    Market access:
+    {\small
+    \begin{align*}
+        \Phi_1 &= 1 \cdot 1^{-4} + 0.5 \cdot 1.5^{-4} = 1 + 0.099 = 1.099 \\
+        \Phi_2 &= 1 \cdot 1.5^{-4} + 0.5 \cdot 1^{-4} = 0.198 + 0.5 = 0.698
+    \end{align*}
+    }
+
+    \vspace{-0.3em}
+    Trade shares:
+    {\small
+    \begin{center}
+    \begin{tabular}{ccc}
+        \toprule
+        $\pi_{ij}$ & $j=1$ & $j=2$ \\
+        \midrule
+        $i=1$ & $1/1.099 = \key{0.910}$ & $0.198/0.698 = 0.284$ \\
+        $i=2$ & $0.099/1.099 = 0.090$ & $0.5/0.698 = \key{0.716}$ \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+    }
+
+    \vspace{0.2em}
+    \key{Result:} Region 1 ($A_1 = 1$) exports more to Region 2 than vice versa. Higher $A_i$ $\Rightarrow$ larger export shares.
+
+\end{frame}
+
+\begin{frame}{How $\theta$ Shapes Trade}
+
+    Same setup, but vary $\theta$:
+
+    \vspace{0.3em}
+    {\footnotesize
+    \begin{center}
+    \begin{tabular}{ccrl}
+        \toprule
+        $\theta$ & $\pi_{11}$ & $\pi_{12}$ & Interpretation \\
+        \midrule
+        $2$ & 0.818 & 0.471 & Dispersed $\Rightarrow$ lots of trade \\
+        $4$ & 0.910 & 0.284 & Moderate \\
+        $8$ & 0.981 & 0.072 & Concentrated $\Rightarrow$ little trade \\
+        $\to \infty$ & 1.000 & 0.000 & No dispersion $\Rightarrow$ autarky \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+    }
+
+    \vspace{0.3em}
+    \key{Takeaway:}
+    \begin{itemize}
+        \item $\theta$ is the \key{trade elasticity}: $\partial \ln(\pi_{ij}/\pi_{jj})/\partial \ln d_{ij} = -\theta$
+        \item Low $\theta$: many goods where the foreign source is cheapest
+        \item High $\theta$: little dispersion, home production dominates
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Why EK Matters}
+
+    \begin{enumerate}
+        \item \key{Gravity from first principles:} Productivity draws + cost minimization, not assumed CES
+        \item \key{Structural trade elasticity:} $\theta$ from supply-side heterogeneity (estimates: $\theta \approx 4$--$8$)
+        \item \key{Comparative advantage:} Regions specialize in goods where they got lucky draws
+        \item \key{Separation:} $\theta$ governs trade patterns; $\sigma$ governs substitution
+    \end{enumerate}
+
+    \vspace{0.3em}
+    \begin{exampleblock}{ACR: \cite{ArkolakisCostinotRodriguezClare2012_welfare}}
+        Many trade models --- EK, Krugman, Melitz --- yield the \emph{same} welfare formula:
+        \[ W_j^{\text{trade}}/W_j^{\text{autarky}} = \pi_{jj}^{-1/\varepsilon} \]
+        where $\varepsilon$ is the trade elasticity ($\theta$ in EK, $\sigma-1$ in CES).
+    \end{exampleblock}
+
+\end{frame}
+
+\begin{frame}{Gains from Trade}
+
+    Welfare (real income) of a worker in region $j$: $W_j = w_j/P_j \propto w_j \cdot \Phi_j^{1/\theta}$.
+
+    \vspace{0.2em}
+    In autarky ($d_{ij} = \infty$ for $i \neq j$): $\pi_{jj} = 1$ and $\Phi_j = A_j w_j^{-\theta}$.
+
+    \vspace{0.2em}
+    \begin{block}{Gains from Trade (ACR Formula)}
+        \vspace{-0.5em}
+        \[ \frac{W_j^{\text{trade}}}{W_j^{\text{autarky}}} = \pi_{jj}^{-1/\theta} \]
+    \end{block}
+
+    \vspace{0.2em}
+    \key{Remarkable:} Only two sufficient statistics needed:
+    \begin{itemize}
+        \item $\pi_{jj}$: home trade share (observable from data)
+        \item $\theta$: trade elasticity (estimable from gravity regressions)
+    \end{itemize}
+
+    \vspace{0.2em}
+    \muted{Example: if $\pi_{jj} = 0.8$ and $\theta = 4$, gains from trade = $0.8^{-1/4} - 1 \approx 5.7\%$.}
+
+\end{frame}
+
+\begin{frame}{Socratic Check}
+
+    \begin{block}{Question for the Class}
+        Country A has $\pi_{AA} = 0.9$ (imports 10\% of goods). Country B has $\pi_{BB} = 0.6$ (imports 40\%). With $\theta = 5$, which country gains more from trade?
+    \end{block}
+
+    \vspace{1em}
+    Think about:
+    \begin{itemize}
+        \item $W_A^{\text{trade}}/W_A^{\text{autarky}} = 0.9^{-1/5} = 1.021$ \quad (2.1\% gain)
+        \item $W_B^{\text{trade}}/W_B^{\text{autarky}} = 0.6^{-1/5} = 1.108$ \quad (10.8\% gain)
+    \end{itemize}
+
+    \vspace{0.5em}
+    \key{Answer:} Country B, the more open economy, gains 5$\times$ more from trade. This is intuitive: countries that trade more have more to lose from autarky.
+
+\end{frame}
+
+% ==============================================================================
+% ACT 3: THE FULL QUANTITATIVE SPATIAL MODEL (slides 21-28)
+% ==============================================================================
+
+\section{The Full Quantitative Spatial Model}
+
+\begin{frame}{Putting It All Together}
+
+    Combine the EK supply side with spatial equilibrium from Lecture 2:
+
+    \vspace{0.3em}
+    \begin{block}{Quantitative Spatial Model: 5 Equations}
+    {\small
+    \begin{align}
+        \text{Trade shares:} \quad & \pi_{ij} = A_i (w_i d_{ij})^{-\theta}/\Phi_j \label{eq:ek_shares} \\[2pt]
+        \text{Price index:} \quad & P_j = \gamma \, \Phi_j^{-1/\theta} \label{eq:ek_price} \\[2pt]
+        \text{Market clearing:} \quad & w_i L_i = \sum_{j} \pi_{ij} \, w_j L_j \label{eq:ek_mc} \\[2pt]
+        \text{Spatial eq.:} \quad & B_i \, w_i / P_i = \bar{U} \quad \forall i \label{eq:ek_spatial} \\[2pt]
+        \text{Population:} \quad & \sum_i L_i = \bar{L} \label{eq:ek_pop}
+    \end{align}
+    }
+    \end{block}
+
+    \vspace{-0.3em}
+    where $\Phi_j = \sum_k A_k (w_k d_{kj})^{-\theta}$.
+
+\end{frame}
+
+\begin{frame}{What's New vs.\ Lecture 2?}
+
+    \begin{center}
+    {\footnotesize
+    \begin{tabular}{lcc}
+        \toprule
+        & \textbf{Lecture 2 (CES)} & \textbf{Lecture 3 (EK)} \\
+        \midrule
+        Supply side & $p_i = w_i$ & Frechet draws, min price \\
+        Trade elasticity & $\sigma - 1$ (preference) & $\theta$ (technology) \\
+        Absolute advantage & None & $A_i$ in trade shares \\
+        Price index & $(\sum (w_i d_{ij})^{1-\sigma})^{1/(1-\sigma)}$ & $\gamma \Phi_j^{-1/\theta}$ \\
+        Gravity & Assumed (CES) & Derived (Frechet) \\
+        \bottomrule
+    \end{tabular}
+    }
+    \end{center}
+
+    \vspace{0.3em}
+    \key{Key advance:} The EK model generates gravity from micro-foundations. The trade elasticity $\theta$ is a technology parameter, separately identifiable from $\sigma$.
+
+\end{frame}
+
+\begin{frame}{The Calibration Challenge}
+
+    To solve this model in levels, we need to know:
+
+    \vspace{0.3em}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Fundamentals}
+                \begin{itemize}
+                    \item $A_i$ for all $i$ (productivity)
+                    \item $B_i$ for all $i$ (amenities)
+                    \item $d_{ij}$ for all $i,j$ (trade costs)
+                \end{itemize}
+            \end{block}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Parameters}
+                \begin{itemize}
+                    \item $\theta$ (trade elasticity)
+                    \item $\sigma$ (substitution)
+                    \item $\bar{L}$ (total population)
+                \end{itemize}
+            \end{block}
+        \end{column}
+    \end{columns}
+
+    \vspace{0.3em}
+    With $N$ regions: $N$ values of $A_i$ + $N$ values of $B_i$ + $N^2$ values of $d_{ij}$.
+
+    \vspace{0.2em}
+    \key{Problem:} With $N = 50$, that's $50 + 50 + 2500 = 2600$ parameters!
+
+\end{frame}
+
+\begin{frame}{Can We Recover Fundamentals?}
+
+    \key{Inverting the model:} Given observed data $\{w_i, L_i, \pi_{ij}\}$, can we recover $A_i$, $B_i$?
+
+    \vspace{0.3em}
+    From trade shares: $A_i \propto \pi_{ii} \cdot w_i^{\theta}$. \quad From spatial equilibrium: $B_i \propto P_i / w_i$.
+
+    \vspace{0.3em}
+    \begin{alertblock}{Two Problems}
+        \begin{enumerate}
+            \item Still need $d_{ij}$ for all pairs --- typically proxied by distance, but imprecise
+            \item Recovering $A_i$, $B_i$ requires knowing $\theta$ (circular)
+        \end{enumerate}
+    \end{alertblock}
+
+    \vspace{0.3em}
+    \key{Question:} Can we answer counterfactual questions \emph{without} recovering $A_i$ and $B_i$?
+
+    \vspace{0.2em}
+    \muted{Yes --- this is exactly what hat algebra does.}
+
+\end{frame}
+
+\begin{frame}{The Counterfactual Question}
+
+    The typical policy question:
+
+    \vspace{0.5em}
+    \begin{block}{Counterfactual Exercise}
+        \emph{``What happens to wages, prices, population, and welfare if trade costs between regions $i$ and $j$ fall by 10\%?''}
+    \end{block}
+
+    \vspace{0.5em}
+    \textbf{Approach 1} (calibrate in levels): Estimate all $A_i$, $B_i$, $d_{ij}$. Solve the model. Change $d_{ij}$. Re-solve. Compare.
+
+    \vspace{0.3em}
+    \textbf{Approach 2} (hat algebra): Write the model in \key{proportional changes}. The fundamentals $A_i$, $B_i$ cancel out. Only need observed equilibrium data $+$ the shock.
+
+    \vspace{0.5em}
+    Approach 2 was pioneered by \cite{EatonKortum2002_technology} and extended by \cite{CaliendoParro2015_trade}.
+
+\end{frame}
+
+% ==============================================================================
+% ACT 4: EXACT HAT ALGEBRA (slides 29-42)
+% ==============================================================================
+
+\section{Exact Hat Algebra}
+
+\begin{frame}{The Key Idea}
+
+    \begin{exampleblock}{Definition: Hat Notation}
+        For any variable $x$, define its \key{proportional change}:
+        \[ \hat{x} \equiv \frac{x'}{x} \]
+        where $x$ is the baseline value and $x'$ is the counterfactual value.
+    \end{exampleblock}
+
+    \vspace{0.5em}
+    Examples:
+    \begin{itemize}
+        \item $\hat{w}_i = 1.05$: wages in region $i$ increase by 5\%
+        \item $\hat{d}_{ij} = 0.90$: trade costs between $i$ and $j$ fall by 10\%
+        \item $\hat{L}_i = 1.20$: population in region $i$ increases by 20\%
+    \end{itemize}
+
+    \vspace{0.5em}
+    \key{The magic:} When we write equilibrium conditions as ratios of counterfactual to baseline, unobserved fundamentals cancel.
+
+\end{frame}
+
+\begin{frame}{Step 1: Trade Shares in Changes}
+
+    Baseline: $\pi_{ij} = A_i (w_i d_{ij})^{-\theta}/\Phi_j$. \quad
+    Counterfactual: $\pi'_{ij} = A_i (w'_i d'_{ij})^{-\theta}/\Phi'_j$.
+
+    \vspace{0.2em}
+    Taking the ratio $\hat{\pi}_{ij} = \pi'_{ij} / \pi_{ij}$:
+
+    \vspace{0.2em}
+    \begin{block}{Trade Shares in Changes}
+        \vspace{-0.5em}
+        \[ \pi'_{ij} = \frac{\pi_{ij} (\hat{w}_i \hat{d}_{ij})^{-\theta}}{\displaystyle\sum_{k} \pi_{kj} (\hat{w}_k \hat{d}_{kj})^{-\theta}} \]
+    \end{block}
+
+    \vspace{0.2em}
+    \key{Critical:} $A_i$ has cancelled! We only need:
+    \begin{itemize}
+        \item \positive{Observed} baseline trade shares $\pi_{kj}$ (from data)
+        \item The \positive{shock} $\hat{d}_{ij}$ (the counterfactual we specify)
+        \item Endogenous changes $\hat{w}_k$ (solved for)
+        \item The parameter $\theta$
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Why Does $A_i$ Cancel?}
+
+    {\small
+    The algebra:
+    \begin{align*}
+        \frac{\pi'_{ij}}{\pi_{ij}} &= \frac{A_i(w'_i d'_{ij})^{-\theta}/\Phi'_j}{A_i(w_i d_{ij})^{-\theta}/\Phi_j} = (\hat{w}_i \hat{d}_{ij})^{-\theta} \cdot \frac{\Phi_j}{\Phi'_j}
+    \end{align*}
+    }
+
+    \vspace{-0.5em}
+    Since $\Phi'_j = \sum_k A_k(w'_k d'_{kj})^{-\theta}$:
+    {\small
+    \begin{align*}
+        \Phi'_j &= \Phi_j \sum_k \frac{A_k(w_k d_{kj})^{-\theta}}{\Phi_j} (\hat{w}_k \hat{d}_{kj})^{-\theta} \\
+        &= \Phi_j \sum_k \pi_{kj} (\hat{w}_k \hat{d}_{kj})^{-\theta}
+    \end{align*}
+    }
+
+    \vspace{0.2em}
+    \key{Insight:} $A_i$ appears in both numerator and denominator, so it cancels. The baseline shares $\pi_{kj}$ ``absorb'' the information about $A_k$.
+
+\end{frame}
+
+\begin{frame}{Step 2: Price Index in Changes}
+
+    From $P_j = \gamma \Phi_j^{-1/\theta}$:
+
+    \vspace{0.3em}
+    \begin{block}{Price Index in Changes}
+        \vspace{-0.5em}
+        \[ \hat{P}_j = \frac{P'_j}{P_j} = \left(\frac{\Phi'_j}{\Phi_j}\right)^{-1/\theta} = \left(\sum_{i} \pi_{ij} (\hat{w}_i \hat{d}_{ij})^{-\theta}\right)^{-1/\theta} \]
+    \end{block}
+
+    \vspace{0.3em}
+    \key{Reading this:}
+    \begin{itemize}
+        \item If trade costs fall ($\hat{d}_{ij} < 1$): the sum increases $\Rightarrow$ $\hat{P}_j < 1$ $\Rightarrow$ prices fall
+        \item The price change in $j$ depends on $j$'s \emph{entire} trade pattern (all $\pi_{ij}$)
+        \item Again: no $A_i$ or $B_i$ needed --- only observed $\pi_{ij}$ and the changes
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Step 3: Market Clearing in Changes}
+
+    Baseline: $w_i L_i = \sum_j \pi_{ij} w_j L_j$
+
+    \vspace{0.3em}
+    Counterfactual: $w'_i L'_i = \sum_j \pi'_{ij} w'_j L'_j$
+
+    \vspace{0.5em}
+    \begin{block}{Market Clearing in Changes}
+        \vspace{-0.5em}
+        \[ \hat{w}_i \hat{L}_i \cdot w_i L_i = \sum_j \pi'_{ij} \cdot \hat{w}_j \hat{L}_j \cdot w_j L_j \]
+    \end{block}
+
+    \vspace{0.3em}
+    where $\pi'_{ij}$ comes from Step 1.
+
+    \vspace{0.5em}
+    \key{What we need:}
+    \begin{itemize}
+        \item Observed baseline income $w_i L_i$ and expenditure $w_j L_j$ (from data)
+        \item Counterfactual trade shares $\pi'_{ij}$ (from Step 1)
+        \item Changes $\hat{w}_i$, $\hat{L}_i$ (endogenous --- what we solve for)
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Step 4: Spatial Equilibrium in Changes}
+
+    Baseline: $B_i w_i / P_i = \bar{U}$
+
+    \vspace{0.3em}
+    Counterfactual: $B'_i w'_i / P'_i = \bar{U}'$
+
+    \vspace{0.5em}
+    If amenities do not change ($\hat{B}_i = 1$) and mobility is free:
+
+    \vspace{0.3em}
+    \begin{block}{Spatial Equilibrium in Changes}
+        \vspace{-0.5em}
+        \[ \hat{w}_i / \hat{P}_i = \hat{\bar{U}} \quad \text{for all } i \]
+    \end{block}
+
+    \vspace{0.2em}
+    where $\hat{\bar{U}}$ is the common change in utility (determined in equilibrium).
+
+    \vspace{0.3em}
+    \key{Again:} $B_i$ cancels! We do not need to know amenity levels.
+
+    \vspace{0.3em}
+    Plus population adding up:
+    \[ \sum_i \hat{L}_i \cdot L_i = \bar{L} = \sum_i L_i \quad \Rightarrow \quad \sum_i (\hat{L}_i - 1) L_i = 0 \]
+
+\end{frame}
+
+\begin{frame}{The Complete Hat Algebra System}
+
+    \begin{block}{Exact Hat Algebra: 4 Equations}
+    {\footnotesize
+    \begin{align}
+        \pi'_{ij} &= \pi_{ij} (\hat{w}_i \hat{d}_{ij})^{-\theta} \Big/ \textstyle\sum_k \pi_{kj} (\hat{w}_k \hat{d}_{kj})^{-\theta} \label{eq:hat_shares} \\[1pt]
+        \hat{P}_j &= \left(\textstyle\sum_i \pi_{ij} (\hat{w}_i \hat{d}_{ij})^{-\theta}\right)^{-1/\theta} \label{eq:hat_price} \\[1pt]
+        \hat{w}_i \hat{L}_i \cdot w_i L_i &= \textstyle\sum_j \pi'_{ij} \cdot \hat{w}_j \hat{L}_j \cdot w_j L_j \label{eq:hat_mc} \\[1pt]
+        \hat{w}_i / \hat{P}_i &= \hat{\bar{U}} \quad \forall i \label{eq:hat_spatial}
+    \end{align}
+    }
+    \end{block}
+
+    \vspace{0.1em}
+    \key{Inputs:} $\pi_{ij}$ (trade shares), $w_i L_i$ (income), $\hat{d}_{ij}$ (shock), $\theta$
+
+    \vspace{0.1em}
+    \key{Unknowns:} $\hat{w}_i$, $\hat{L}_i$, $\hat{P}_i$, $\pi'_{ij}$, $\hat{\bar{U}}$
+
+\end{frame}
+
+\begin{frame}{Reading the Hat Algebra System}
+
+    {\small
+    \begin{enumerate}
+        \item \key{Trade shares} \eqref{eq:hat_shares}: Counterfactual shares = baseline shares reweighted by cost changes $(\hat{w}_i \hat{d}_{ij})^{-\theta}$. Regions that become cheaper gain share.
+        \item \key{Price index} \eqref{eq:hat_price}: Price changes are a CES-like aggregate of cost changes, weighted by baseline trade shares $\pi_{ij}$.
+        \item \key{Market clearing} \eqref{eq:hat_mc}: Each region's counterfactual income must equal total spending on its goods, evaluated at counterfactual shares and incomes.
+        \item \key{Spatial equilibrium} \eqref{eq:hat_spatial}: Real wage changes must be equalized across all populated regions.
+    \end{enumerate}
+    }
+
+    \vspace{0.3em}
+    \key{Solution strategy:} Guess $\hat{w}_i$ $\rightarrow$ compute $\pi'_{ij}$, $\hat{P}_j$ $\rightarrow$ update $\hat{w}_i$ via market clearing $\rightarrow$ iterate until convergence.
+
+\end{frame}
+
+\begin{frame}{What Hat Algebra Buys Us}
+
+    \begin{center}
+    \begin{tikzpicture}[scale=0.85,
+        node distance=0.35cm and 0.8cm,
+        every node/.style={font=\footnotesize, align=center},
+        input/.style={draw, rounded corners, fill=green!15, minimum width=2.5cm, minimum height=0.5cm},
+        system/.style={draw, thick, rounded corners, fill=tsinghua!15, minimum width=2.8cm, minimum height=0.7cm},
+        output/.style={draw, rounded corners, fill=yellow!20, minimum width=2.5cm, minimum height=0.5cm},
+        notneed/.style={draw, dashed, rounded corners, fill=red!10, minimum width=2.2cm, minimum height=0.5cm, text=gray}
+    ]
+        % Inputs
+        \node[input] (data) at (-3.2, 1.8) {Observed $\pi_{ij}, w_i L_i$};
+        \node[input] (shock) at (-3.2, 0.8) {Shock $\hat{d}_{ij}$};
+        \node[input] (theta) at (-3.2, -0.2) {Parameter $\theta$};
+
+        % System
+        \node[system] (hat) at (0.3, 0.9) {Hat algebra\\system};
+
+        % Outputs
+        \node[output] (wages) at (3.8, 1.8) {$\hat{w}_i$ (wages)};
+        \node[output] (welfare) at (3.8, 0.8) {$\hat{W}_j$ (welfare)};
+        \node[output] (pop) at (3.8, -0.2) {$\hat{L}_i$ (migration)};
+
+        % Not needed
+        \node[notneed] (ai) at (-3.2, -1.5) {$A_i$ (productivity)};
+        \node[notneed] (bi) at (0.3, -1.5) {$B_i$ (amenities)};
+        \node[notneed] (dij) at (3.8, -1.5) {$d_{ij}$ (cost levels)};
+
+        % Arrows
+        \draw[-{Stealth}, thick] (data) -- (hat);
+        \draw[-{Stealth}, thick] (shock) -- (hat);
+        \draw[-{Stealth}, thick] (theta) -- (hat);
+        \draw[-{Stealth}, thick] (hat) -- (wages);
+        \draw[-{Stealth}, thick] (hat) -- (welfare);
+        \draw[-{Stealth}, thick] (hat) -- (pop);
+
+        % Not needed label
+        \node[font=\footnotesize\bfseries, red!70!black] at (0.3, -2.2) {NOT NEEDED};
+    \end{tikzpicture}
+    \end{center}
+
+\end{frame}
+
+\begin{frame}{Welfare Changes}
+
+    From the ACR formula, welfare changes are particularly clean:
+
+    \vspace{0.3em}
+    \begin{block}{Welfare Change}
+        \vspace{-0.5em}
+        \[ \hat{W}_j = \frac{\hat{w}_j}{\hat{P}_j} = \hat{\pi}_{jj}^{-1/\theta} \]
+        where $\hat{\pi}_{jj} = \pi'_{jj}/\pi_{jj}$ is the change in the home trade share.
+    \end{block}
+
+    \vspace{0.5em}
+    \key{Intuition:}
+    \begin{itemize}
+        \item If trade costs fall, $j$ imports more $\Rightarrow$ $\pi'_{jj} < \pi_{jj}$ $\Rightarrow$ $\hat{\pi}_{jj} < 1$
+        \item So $\hat{W}_j = \hat{\pi}_{jj}^{-1/\theta} > 1$: welfare increases
+        \item Larger gains for regions \emph{more affected} by the trade cost change
+    \end{itemize}
+
+    \vspace{0.3em}
+    \muted{This holds exactly in the one-sector EK model. Multi-sector extensions \cite{CaliendoParro2015_trade} modify the formula but keep the spirit.}
+
+\end{frame}
+
+\begin{frame}{Worked Example: 3 Regions, Trade Liberalization}
+
+    \textbf{Setup:} $N=3$, $\theta = 4$. Baseline data (observed):
+
+    \vspace{0.2em}
+    {\small
+    \begin{center}
+    \begin{tabular}{ccccc}
+        \toprule
+        $\pi_{ij}$ & $j=1$ & $j=2$ & $j=3$ & $w_i L_i$ \\
+        \midrule
+        $i=1$ & 0.70 & 0.15 & 0.10 & 100 \\
+        $i=2$ & 0.10 & 0.65 & 0.20 & 80 \\
+        $i=3$ & 0.20 & 0.20 & 0.70 & 120 \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+    }
+
+    \vspace{0.3em}
+    \textbf{Shock:} Trade costs between regions 1 and 2 fall by 10\%: $\hat{d}_{12} = \hat{d}_{21} = 0.9$. All other $\hat{d}_{ij} = 1$.
+
+    \vspace{0.3em}
+    \textbf{To solve:} Plug into the hat algebra system and iterate until convergence.
+
+    \vspace{0.3em}
+    \muted{We will show the algorithm in a few slides. For now, focus on the structure: only the table above + the shock + $\theta$ are needed.}
+
+\end{frame}
+
+\begin{frame}{Worked Example: Results}
+
+    After solving the hat algebra system (50 iterations):
+
+    \vspace{0.3em}
+    {\small
+    \begin{center}
+    \begin{tabular}{lccc}
+        \toprule
+        & Region 1 & Region 2 & Region 3 \\
+        \midrule
+        $\hat{w}_i$ & 1.008 & 1.012 & 0.997 \\
+        $\hat{P}_i$ & 0.992 & 0.988 & 1.001 \\
+        $\hat{W}_i = \hat{w}_i/\hat{P}_i$ & \positive{1.016} & \positive{1.024} & \negative{0.996} \\
+        $\hat{L}_i$ & 1.011 & 1.018 & 0.971 \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+    }
+
+    \vspace{0.2em}
+    \key{Reading the results:}
+    \begin{itemize}
+        \item Regions 1 and 2 \positive{gain}: lower bilateral trade costs $\Rightarrow$ cheaper imports
+        \item Region 2 gains more (more reliant on imports from 1)
+        \item Region 3 \negative{loses slightly}: ``trade diversion''
+        \item Workers migrate toward gaining regions
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{The Fixed-Point Algorithm}
+
+    The hat algebra system is solved by \key{iteration}:
+
+    \vspace{0.2em}
+    {\small
+    \begin{enumerate}
+        \item \textbf{Initialize:} $\hat{w}_i^{(0)} = 1$ for all $i$
+        \item \textbf{Update trade shares:}
+            $\pi_{ij}^{\prime(t)} = \pi_{ij} (\hat{w}_i^{(t)} \hat{d}_{ij})^{-\theta} / \sum_k \pi_{kj} (\hat{w}_k^{(t)} \hat{d}_{kj})^{-\theta}$
+        \item \textbf{Update prices:}
+            $\hat{P}_j^{(t)} = \left(\sum_i \pi_{ij} (\hat{w}_i^{(t)} \hat{d}_{ij})^{-\theta}\right)^{-1/\theta}$
+        \item \textbf{Update wages} via market clearing + spatial eq.
+        \item \textbf{Converge?} $\max_i |\hat{w}_i^{(t+1)} - \hat{w}_i^{(t)}| < \varepsilon$. If not, go to 2.
+    \end{enumerate}
+    }
+
+    \vspace{0.2em}
+    Typically converges in 50--200 iterations. \quad \lecmark{8}
+
+\end{frame}
+
+\begin{frame}{Extensions: Multi-Sector Hat Algebra}
+
+    \cite{CaliendoParro2015_trade} extend hat algebra to $S$ sectors with I-O linkages:
+
+    \vspace{0.2em}
+    \begin{itemize}
+        \item Each sector $s$ has its own trade shares $\pi_{ij}^s$ and elasticity $\theta^s$
+        \item Sectors use each other's output as intermediates (I-O coefficients $\alpha^{sk}$)
+    \end{itemize}
+
+    \vspace{0.3em}
+    \begin{block}{Multi-Sector Trade Shares in Changes}
+        \vspace{-0.5em}
+        \[ \pi_{ij}^{\prime s} = \frac{\pi_{ij}^s (\hat{c}_i^s \hat{d}_{ij}^s)^{-\theta^s}}{\sum_k \pi_{kj}^s (\hat{c}_k^s \hat{d}_{kj}^s)^{-\theta^s}} \]
+    \end{block}
+
+    \vspace{0.2em}
+    where $\hat{c}_i^s$ = change in unit cost of sector $s$ in region $i$, depending on wages \emph{and} intermediate input prices.
+
+    \vspace{0.2em}
+    \muted{Same principle: fundamentals cancel, observed data + shocks suffice.}
+
+\end{frame}
+
+\begin{frame}{Why ``Exact''?}
+
+    The hat algebra approach is called \key{exact} because:
+
+    \vspace{0.3em}
+    \begin{enumerate}
+        \item \key{No approximation:} Holds exactly for any shock size, not just ``small'' changes
+        \item \key{No simulation error:} Counterfactual values are true model predictions
+        \item \key{Global, not local:} Handles large shocks (e.g., full tariff removal)
+    \end{enumerate}
+
+    \vspace{0.3em}
+    \begin{exampleblock}{Contrast with Log-Linearization}
+        Traditional approach: Taylor expansion around equilibrium. Accurate for small shocks, breaks down for large ones. Hat algebra works with exact ratios instead.
+    \end{exampleblock}
+
+\end{frame}
+
+\begin{frame}{Socratic Check}
+
+    \begin{block}{Question for the Class}
+        In the hat algebra system, what happens if we set $\hat{d}_{ij} = 1$ for all $i,j$ (i.e., no change in trade costs)?
+    \end{block}
+
+    \vspace{1em}
+    Think about:
+    \begin{itemize}
+        \item $\pi'_{ij} = \frac{\pi_{ij} \hat{w}_i^{-\theta}}{\sum_k \pi_{kj} \hat{w}_k^{-\theta}}$
+        \item If $\hat{w}_i = 1$ for all $i$, then $\pi'_{ij} = \pi_{ij}$
+        \item The system admits $\hat{w}_i = \hat{P}_i = \hat{L}_i = 1$ as a solution
+    \end{itemize}
+
+    \vspace{0.5em}
+    \key{Answer:} The system correctly returns ``no change'' when no shock is applied. The observed equilibrium is self-consistent.
+
+\end{frame}
+
+% ==============================================================================
+% ACT 5: APPLICATIONS & PREVIEW (slides 43-50)
+% ==============================================================================
+
+\section{Applications and What's Next}
+
+\begin{frame}{Application: NAFTA (Caliendo \& Parro 2015)}
+
+    \cite{CaliendoParro2015_trade} use multi-sector hat algebra to evaluate NAFTA:
+
+    \vspace{0.3em}
+    \textbf{Setup:} 31 sectors, 40 countries. Observed tariff reductions as shock ($\hat{d}_{ij}^j$). Sector-specific $\theta^j$ estimated from tariff variation.
+
+    \vspace{0.3em}
+    \textbf{Key findings:}
+
+    \vspace{0.2em}
+    {\small
+    \begin{center}
+    \begin{tabular}{lcc}
+        \toprule
+        Country & Welfare change & Trade change \\
+        \midrule
+        Mexico & \positive{+1.31\%} & +118\% (US imports) \\
+        Canada & \positive{+0.06\%} & Modest increase \\
+        United States & \positive{+0.08\%} & Modest increase \\
+        Rest of World & $\approx 0\%$ & Small trade diversion \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+    }
+
+    \vspace{0.2em}
+    \muted{Mexico gains most because NAFTA reduced its tariffs the most.}
+
+\end{frame}
+
+\begin{frame}{Application: China Trade Shock (Preview)}
+
+    \cite{CaliendoDvorkinParro2019_trade_labor} extend to dynamic spatial GE:
+
+    \vspace{0.3em}
+    \begin{itemize}
+        \item China's productivity growth 2000--2007 as the shock
+        \item 38 countries $\times$ 50 US states
+        \item Dynamic hat algebra with \key{migration frictions} and \key{transition paths}
+    \end{itemize}
+
+    \vspace{0.3em}
+    \begin{block}{Key Additions Beyond Static Hat Algebra}
+        \begin{itemize}
+            \item Workers face moving costs: $\mu_{ij,t}$ (migration probabilities)
+            \item Gradual adjustment: workers re-optimize each period
+            \item Forward-looking: location choice depends on future wages
+        \end{itemize}
+    \end{block}
+
+    \vspace{0.2em}
+    \lecmark{5--6}
+
+\end{frame}
+
+\begin{frame}{Computational Considerations}
+
+    \textbf{Solving the hat algebra system in practice:}
+
+    \vspace{0.3em}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Simple Iteration}
+                \begin{itemize}
+                    \item Start: $\hat{w}^{(0)} = \bm{1}$
+                    \item Update: $\hat{w}^{(t+1)} = T(\hat{w}^{(t)})$
+                    \item Stop: $\|\hat{w}^{(t+1)} - \hat{w}^{(t)}\| < \varepsilon$
+                    \item \positive{Easy to code}
+                    \item \negative{Can be slow}
+                \end{itemize}
+            \end{block}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Dampened Iteration}
+                \begin{itemize}
+                    \item $\hat{w}^{(t+1)} = \lambda T(\hat{w}^{(t)})$
+                    \item[] $\quad + (1-\lambda) \hat{w}^{(t)}$
+                    \item $\lambda \in (0,1)$: dampening
+                    \item \positive{More stable}
+                    \item \negative{Slower convergence}
+                \end{itemize}
+            \end{block}
+        \end{column}
+    \end{columns}
+
+    \vspace{0.3em}
+    Typical: 50--200 iterations for $N \leq 100$ regions. Sub-second on a laptop. \quad \lecmark{8}
+
+\end{frame}
+
+\begin{frame}{Summary: The Eaton-Kortum Model}
+
+    \begin{enumerate}
+        \item \key{Frechet productivity draws:} $F_i(z) = e^{-A_i z^{-\theta}}$. Regions draw random productivities; consumers buy from cheapest source.
+        \item \key{EK trade shares:}
+        $\pi_{ij} = A_i(w_i d_{ij})^{-\theta} / \Phi_j$.
+        Gravity from first principles; $\theta$ is the structural trade elasticity.
+        \item \key{Gains from trade:} $W_j^{\text{trade}}/W_j^{\text{autarky}} = \pi_{jj}^{-1/\theta}$. Two sufficient statistics: home share + trade elasticity.
+    \end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Summary: Exact Hat Algebra}
+
+    \begin{enumerate}
+        \item \key{Write the model in changes:} $\hat{x} = x'/x$. Unobserved fundamentals ($A_i$, $B_i$) cancel.
+        \item \key{Only need:} Observed data $(\pi_{ij}, w_i L_i)$ + the shock $(\hat{d}_{ij})$ + one parameter $(\theta)$.
+        \item \key{Exact:} No linearization --- works for any shock size.
+        \item \key{Solve by iteration:} Fixed-point problem, typically 50--200 iterations.
+    \end{enumerate}
+
+    \vspace{0.3em}
+    \begin{block}{Key Equations}
+    {\small
+    \begin{align*}
+        \pi'_{ij} &= \pi_{ij}(\hat{w}_i \hat{d}_{ij})^{-\theta} \Big/ \textstyle\sum_k \pi_{kj}(\hat{w}_k \hat{d}_{kj})^{-\theta} \\
+        \hat{P}_j &= \left(\textstyle\sum_i \pi_{ij}(\hat{w}_i \hat{d}_{ij})^{-\theta}\right)^{-1/\theta}, \qquad \hat{W}_j = \hat{\pi}_{jj}^{-1/\theta}
+    \end{align*}
+    }
+    \end{block}
+
+\end{frame}
+
+\begin{frame}{New Notation Introduced}
+
+    {\footnotesize
+    \begin{center}
+    \begin{tabular}{cll}
+        \toprule
+        \textbf{Symbol} & \textbf{Meaning} & \textbf{Notes} \\
+        \midrule
+        $\theta$ & Trade elasticity (Frechet shape) & Typically $\approx 4$--$8$ \\
+        $A_i$ & Fundamental productivity & Frechet scale parameter \\
+        $\Phi_j$ & Market access & $\sum_k A_k (w_k d_{kj})^{-\theta}$ \\
+        $\hat{x}$ & Proportional change & $x'/x$ \\
+        $\gamma$ & Frechet constant & Depends on $\theta$, $\sigma$ \\
+        $\pi'_{ij}$ & Counterfactual trade share & After the shock \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+    }
+
+    \vspace{0.3em}
+    \key{From Lecture 2:} $w_i$, $L_i$, $P_j$, $\pi_{ij}$, $d_{ij}$, $B_i$, $\sigma$, $\bar{U}$, $\bar{L}$
+
+\end{frame}
+
+\begin{frame}{What's Next}
+
+    \begin{block}{Lecture 4: Geography of Development (DNR 2018)}
+        Adds \key{dynamics} and \key{technology diffusion} to the spatial model:
+        \begin{itemize}
+            \item How does the spatial economy evolve over \emph{centuries}?
+            \item Can geographic fundamentals explain today's income distribution?
+            \item Uses hat algebra + dynamic forward-looking agents
+        \end{itemize}
+    \end{block}
+
+    \vspace{0.3em}
+    \begin{center}
+    \begin{tikzpicture}[
+        node distance=0.4cm,
+        every node/.style={font=\footnotesize, align=center},
+        done/.style={draw, rounded corners, fill=gray!20, minimum width=5.5cm, minimum height=0.45cm},
+        current/.style={draw, thick, rounded corners, fill=tsinghua!20, minimum width=5.5cm, minimum height=0.45cm},
+        next/.style={draw, rounded corners, fill=yellow!20, minimum width=5.5cm, minimum height=0.45cm}
+    ]
+        \node[done] (l2) {Lecture 2: Spatial Eq.\ Foundations \checkmark};
+        \node[current, below=of l2] (l3) {\key{Lecture 3: Quantitative Spatial Models} \checkmark};
+        \node[next, below=of l3] (l4) {Lecture 4: Geography of Development};
+        \draw[-{Stealth}, thick, gray] (l2) -- (l3);
+        \draw[-{Stealth}, thick, tsinghua] (l3) -- (l4);
+    \end{tikzpicture}
+    \end{center}
+
+\end{frame}
+
+% ==============================================================================
+% REFERENCES
+% ==============================================================================
+
+\begin{frame}[allowframebreaks]{References}
+    \bibliographystyle{apalike}
+    \bibliography{../Bibliography_base}
+\end{frame}
+
+\end{document}
